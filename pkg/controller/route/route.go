@@ -1498,6 +1498,9 @@ func filterOutAnnotations(annotations map[string]string) {
 	// don't copy haproxy.router.openshift.io/ip_whitelist so http-01 validation works
 	delete(annotations, "haproxy.router.openshift.io/ip_whitelist")
 
+	// don't copy haproxy.router.openshift.io/rewrite-target prevent 404 error
+	delete(annotations, "haproxy.router.openshift.io/rewrite-target")
+
 	regexString, ok := annotations[api.AcmeExposerHttpFilterOutAnnotationsAnnotation]
 	if !ok || len(regexString) == 0 {
 		return
